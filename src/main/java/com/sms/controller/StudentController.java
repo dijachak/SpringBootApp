@@ -25,8 +25,14 @@ public class StudentController {
 		this.studentService = studentService;
 	}
 	
-	@GetMapping("/students")
+	@GetMapping("/")
 	public String listStudents(Model model) {
+		model.addAttribute("students", studentService.getAllStudents());
+		return "students.html";
+	}
+	
+	@GetMapping("/students")
+	public String Students(Model model) {
 		model.addAttribute("students", studentService.getAllStudents());
 		return "students";
 	}
@@ -56,8 +62,6 @@ public class StudentController {
 	}
 	
 	private boolean isValidStudent(Student student) {
-	    // Implémentez votre logique de validation des données d'étudiant ici
-	    // Par exemple, vérifiez si les champs obligatoires sont renseignés correctement
 	    return student.getFirstName() != null && !student.getFirstName().isEmpty() &&
 	            student.getLastName() != null && !student.getLastName().isEmpty() &&
 	            student.getEmail() != null && !student.getEmail().isEmpty();
